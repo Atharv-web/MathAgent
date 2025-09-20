@@ -1,0 +1,8 @@
+fastapi
+mcp[cli]
+llama-index
+pydantic
+requests
+uvicorn
+faiss-cpu
+tavily-python
