@@ -50,7 +50,7 @@ function App() {
     } else if (window.MathJax) {
       setMathJaxLoaded(true);
     }
-  }, []);
+  }, [mathJaxLoaded]);
 
   // Retypeset MathJax when messages change
   useEffect(() => {
@@ -234,17 +234,6 @@ function App() {
     }
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey && !loading) {
-      e.preventDefault();
-      if (waiting) {
-        sendFeedback();
-      } else {
-        sendMessage();
-      }
-    }
-  };
-
   const startNewChat = () => {
     setSessionId(null);
     setMessages([]);
@@ -259,7 +248,7 @@ function App() {
       <div className="chat-window">
         <div className="chat-header">
           <div className="header-content">
-            <h2>🤖 Math Agent Assistant</h2>
+            <h2>Math Assistant</h2>
             {status && (
               <div 
                 className="status-badge" 
@@ -331,7 +320,6 @@ function App() {
             <textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              onKeyPress={handleKeyPress}
               placeholder={
                 waiting 
                   ? "Type 'approve' to accept the solution, or provide feedback..." 
@@ -358,7 +346,7 @@ function App() {
           
           {waiting && (
             <div className="feedback-hint">
-              💡 <strong>Tip:</strong> Type "approve" to accept the solution, or provide specific feedback for improvements
+              {/* 💡 <strong>Tip:</strong> Type "approve" to accept the solution, or provide specific feedback for improvements */}
             </div>
           )}
         </div>

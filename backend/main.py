@@ -253,7 +253,7 @@ class MathAgent:
         
         try:
             if self.research_agent:
-                result = self.research_agent.run(
+                result = await self.research_agent.run(
                     f"Provide comprehensive mathematical research and context for: {topic}\n\n"
                     f"Include relevant definitions, formulas, theorems, and solution approaches."
                 )
@@ -296,7 +296,7 @@ class MathAgent:
                     f"PROBLEM TO SOLVE:\n{topic}\n\n"
                     f"Provide a complete step-by-step solution with clear explanations for each step."
                 )
-                result = self.math_agent.run(prompt)
+                result = await self.math_agent.run(prompt)
                 solution = str(result)
                 
                 # Apply math formatting
@@ -352,7 +352,7 @@ class MathAgent:
                 - Maintaining mathematical accuracy
                 Provide an improved, comprehensive solution that addresses the feedback."""
                 
-                result = self.math_agent.run(prompt)
+                result = await self.math_agent.run(prompt)
                 improved = str(result)
                 formatted_improved = MathGuardrails.format_math_output(improved)
                 return formatted_improved
