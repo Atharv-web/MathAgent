@@ -1,8 +1,11 @@
 fastapi
+openai
+python-dotenv
 mcp[cli]
-llama-index
+llama-index-core
+llama-index-llms-openai
+llama-index-tools-mcp
 pydantic
-requests
 uvicorn
 faiss-cpu
 tavily-python
