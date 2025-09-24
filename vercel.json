@@ -15,6 +15,11 @@
     "routes": [
       { "src": "/api/(.*)", "dest": "backend/main.py" },
       { "src": "/(.*)", "dest": "frontend/math-agent/$1" }
-    ]
+    ],
+
+    "functions": {
+        "backend/**": {
+          "excludeFiles": "{*.pyc,__pycache__,*.log,*.csv,*.txt,*.db}"
+        }
+      }
   }
-  
