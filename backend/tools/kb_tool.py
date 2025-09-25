@@ -20,7 +20,7 @@ def encode_db():
     faiss_index = faiss.IndexFlatL2(dimensions)
     vector_store = FaissVectorStore(faiss_index=faiss_index)
     storage_context = StorageContext.from_defaults(vector_store=vector_store)
-    vector_store.persist(persist_path="../VectorDB")
+    vector_store.persist(persist_path="./VectorDB")
 
     # Store in Faiss
     index = VectorStoreIndex.from_documents(documents,storage_context=storage_context)
