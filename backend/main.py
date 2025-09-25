@@ -3,13 +3,10 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Dict, Any,Optional
 from pydantic import BaseModel
-from dotenv import load_dotenv
 from llama_index.core.agent.workflow import FunctionAgent
 from llama_index.llms.openai import OpenAI
 from llama_index.tools.mcp import BasicMCPClient, McpToolSpec
-from tools.kb_tool import rag_tool
-
-load_dotenv()
+from backend.tools.kb_tool import rag_tool
 
 # ---- Config ----
 llm = OpenAI(model="gpt-4o", temperature=0.1)
