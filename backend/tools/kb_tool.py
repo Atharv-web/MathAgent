@@ -1,4 +1,4 @@
-import faiss
+import faiss, os
 from llama_index.embeddings.ollama import OllamaEmbedding
 from llama_index.core import VectorStoreIndex, StorageContext,Settings
 from llama_index.vector_stores.faiss import FaissVectorStore
@@ -12,7 +12,10 @@ ollama_embedding = OllamaEmbedding(
 
 Settings.embed_model = ollama_embedding
 
-documents = PyMuPDFReader().load('backend\data\mathbook.pdf')
+base_dir = os.path.dirname(os.path.abspath(__file__))
+pdf_path = os.path.join(base_dir,"../data/mathbook.pdf")
+
+documents = PyMuPDFReader().load(pdf_path)
 
 def encode_db():
     dimensions = 768
