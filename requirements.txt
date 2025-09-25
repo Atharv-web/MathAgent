@@ -1,4 +1,4 @@
-fitz
+pymupdf
 fastapi
 openai
 python-dotenv
