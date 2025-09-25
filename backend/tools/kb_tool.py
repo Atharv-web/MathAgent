@@ -12,10 +12,10 @@ ollama_embedding = OllamaEmbedding(
 
 Settings.embed_model = ollama_embedding
 
-base_dir = os.path.dirname(os.path.abspath(__file__))
-pdf_path = os.path.join(base_dir,"../data/mathbook.pdf")
+# base_dir = os.path.dirname(os.path.abspath(__file__))
+# pdf_path = os.path.join(base_dir,"../data/mathbook.pdf")
 
-documents = PyMuPDFReader().load(pdf_path)
+# documents = PyMuPDFReader().load(pdf_path)
 
 def encode_db():
     dimensions = 768
