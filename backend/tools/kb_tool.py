@@ -1,10 +1,9 @@
 import faiss
 from llama_index.embeddings.ollama import OllamaEmbedding
-from llama_index.core import VectorStoreIndex, StorageContext
+from llama_index.core import VectorStoreIndex, StorageContext,Settings
 from llama_index.vector_stores.faiss import FaissVectorStore
 from llama_index.core.tools import QueryEngineTool, ToolMetadata
 from llama_index.readers.file import PyMuPDFReader
-from llama_index.core import Settings
 
 ollama_embedding = OllamaEmbedding(
     model_name="nomic-embed-text:latest",
@@ -13,7 +12,7 @@ ollama_embedding = OllamaEmbedding(
 
 Settings.embed_model = ollama_embedding
 
-documents = PyMuPDFReader().load(r'C:\Users\Atharva\Desktop\MathAgent\backend\data\mathbook.pdf')
+documents = PyMuPDFReader().load('backend\data\mathbook.pdf')
 
 def encode_db():
     dimensions = 768
