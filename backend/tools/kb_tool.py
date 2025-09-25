@@ -1,14 +1,18 @@
 import faiss
+from llama_index.embeddings.ollama import OllamaEmbedding
 from llama_index.core import VectorStoreIndex, StorageContext
 from llama_index.vector_stores.faiss import FaissVectorStore
 from llama_index.core.tools import QueryEngineTool, ToolMetadata
 from llama_index.readers.file import PyMuPDFReader
-from dotenv import load_dotenv
-load_dotenv()
-
-from langchain_ollama import OllamaEmbeddings
 from llama_index.core import Settings
-Settings.embed_model = OllamaEmbeddings(model="nomic-embed-text:latest")
+
+ollama_embedding = OllamaEmbedding(
+    model_name="nomic-embed-text:latest",
+    base_url="http://localhost:11434",
+)
+
+Settings.embed_model = ollama_embedding
+
 documents = PyMuPDFReader().load(r'C:\Users\Atharva\Desktop\MathAgent\backend\data\mathbook.pdf')
 
 def encode_db():
