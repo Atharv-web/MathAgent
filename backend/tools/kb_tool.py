@@ -3,7 +3,7 @@ from llama_index.embeddings.ollama import OllamaEmbedding
 from llama_index.core import VectorStoreIndex, StorageContext,Settings
 from llama_index.vector_stores.faiss import FaissVectorStore
 from llama_index.core.tools import QueryEngineTool, ToolMetadata
-from llama_index.readers.file import PyMuPDFReader
+# from llama_index.readers.file import PyMuPDFReader
 
 ollama_embedding = OllamaEmbedding(
     model_name="nomic-embed-text:latest",
