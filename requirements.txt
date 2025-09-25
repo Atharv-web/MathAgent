@@ -6,6 +6,7 @@ llama-index-core
 llama-index-llms-openai
 llama-index-tools-mcp
 llama-index-vector-stores-faiss
+llama-index-readers-pymupdf
 pydantic
 uvicorn
 faiss-cpu
