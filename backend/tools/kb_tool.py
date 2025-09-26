@@ -1,11 +1,11 @@
 import faiss, os
-from llama_index.embeddings.openai import OpenAIEmbedding
+from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.core import VectorStoreIndex, StorageContext,Settings, load_index_from_storage
 from llama_index.vector_stores.faiss import FaissVectorStore
 from llama_index.core.tools import QueryEngineTool, ToolMetadata
 from llama_index.readers.file import PyMuPDFReader
 
-embedding_model = OpenAIEmbedding(model="text-embedding-3-small")
+embedding_model = HuggingFaceEmbedding(model="nomic-ai/nomic-embed-text-v1")
 Settings.embed_model = embedding_model
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
