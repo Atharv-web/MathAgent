@@ -5,7 +5,7 @@ from llama_index.vector_stores.faiss import FaissVectorStore
 from llama_index.core.tools import QueryEngineTool, ToolMetadata
 from llama_index.readers.file import PyMuPDFReader
 
-embedding_model = HuggingFaceEmbedding(model="nomic-ai/nomic-embed-text-v1")
+embedding_model = HuggingFaceEmbedding(model="sentence-transformers/all-MiniLM-L6-v2")
 Settings.embed_model = embedding_model
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -16,7 +16,7 @@ pdf_path = os.path.join(base_dir,"..","data","mathbook.pdf")
 def encode_db(db_path):
     documents = PyMuPDFReader().load(db_path)
     
-    dimensions = 768
+    dimensions = 384
     faiss_index = faiss.IndexFlatL2(dimensions)
     vector_store = FaissVectorStore(faiss_index=faiss_index)
     storage_context = StorageContext.from_defaults(vector_store=vector_store)
