@@ -1,15 +1,12 @@
 import faiss, os
-from llama_index.embeddings.ollama import OllamaEmbedding
+from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.core import VectorStoreIndex, StorageContext,Settings, load_index_from_storage
 from llama_index.vector_stores.faiss import FaissVectorStore
 from llama_index.core.tools import QueryEngineTool, ToolMetadata
 from llama_index.readers.file import PyMuPDFReader
-from dotenv import load_dotenv
-load_dotenv()
 
-ollama_embedding = OllamaEmbedding(model_name="nomic-embed-text:latest",base_url="http://localhost:11434",)
-
-Settings.embed_model = ollama_embedding
+embedding_model = OpenAIEmbedding(model="text-embedding-3-small")
+Settings.embed_model = embedding_model
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
