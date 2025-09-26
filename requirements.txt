@@ -3,7 +3,7 @@ fastapi
 openai
 python-dotenv
 mcp[cli]
-llama-index-embeddings-ollama
+llama-index-embeddings-openai
 llama-index-core
 llama-index-llms-openai
 llama-index-tools-mcp
