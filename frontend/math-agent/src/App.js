@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 
+const BACKEND_API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
 // MathJax configuration
 const mathJaxConfig = {
   tex: {
@@ -29,8 +31,6 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [mathJaxLoaded, setMathJaxLoaded] = useState(false);
   const messagesEndRef = useRef(null);
-
-  const BACKEND_API_URL = 
 
   // Load MathJax
   useEffect(() => {
@@ -74,7 +74,7 @@ function App() {
 
     const pollChat = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/chat/${sessionId}`);
+        const res = await fetch(`${BACKEND_API_URL}/chat/${sessionId}`);
         if (res.ok) {
           const data = await res.json();
           setMessages(data.messages || []);
@@ -154,7 +154,7 @@ function App() {
     try {
       setLoading(true);
       
-      const res = await fetch("http://localhost:8000/chat", {
+      const res = await fetch(`${BACKEND_API_URL}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
@@ -192,7 +192,7 @@ function App() {
     try {
       setLoading(true);
       
-      const res = await fetch("http://localhost:8000/human-input", {
+      const res = await fetch(`${BACKEND_API_URL}/human-input`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
