@@ -14,9 +14,10 @@ Settings.embed_model = ollama_embedding
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
 persist_dir_path = os.path.join(base_dir,"db","VectorStore")
-def encode_db():
-    pdf_path = os.path.join(base_dir,"backend/data/mathbook.pdf")
-    documents = PyMuPDFReader().load(pdf_path)
+pdf_path = os.path.join(base_dir,"backend/data/mathbook.pdf")
+
+def encode_db(db_path):
+    documents = PyMuPDFReader().load(db_path)
     
     dimensions = 768
     faiss_index = faiss.IndexFlatL2(dimensions)
@@ -33,7 +34,7 @@ if os.path.exists(os.path.join(persist_dir_path,"docstore.json")):
     storage_context = StorageContext.from_defaults(persist_dir=persist_dir_path)
     index = load_index_from_storage(storage_context=storage_context)
 else:
-    index = encode_db()
+    index = encode_db(pdf_path)
 
 queryEngine = index.as_query_engine
 
