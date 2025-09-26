@@ -14,7 +14,7 @@ Settings.embed_model = ollama_embedding
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
 persist_dir_path = os.path.join(base_dir,"db","VectorStore")
-pdf_path = os.path.join(base_dir,"backend/data/mathbook.pdf")
+pdf_path = os.path.join(base_dir,"..","data","mathbook.pdf")
 
 def encode_db(db_path):
     documents = PyMuPDFReader().load(db_path)
