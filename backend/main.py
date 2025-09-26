@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from llama_index.core.agent.workflow import FunctionAgent
 from llama_index.llms.openai import OpenAI
 from llama_index.tools.mcp import BasicMCPClient, McpToolSpec
-from tools.kb_tool import rag_tool
+from kb_tool import rag_tool
 
 # ---- Config ----
 llm = OpenAI(model="gpt-4o", temperature=0.1)
