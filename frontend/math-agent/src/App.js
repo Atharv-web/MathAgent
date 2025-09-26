@@ -30,6 +30,8 @@ function App() {
   const [mathJaxLoaded, setMathJaxLoaded] = useState(false);
   const messagesEndRef = useRef(null);
 
+  const BACKEND_API_URL = 
+
   // Load MathJax
   useEffect(() => {
     if (!window.MathJax && !mathJaxLoaded) {
