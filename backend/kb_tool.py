@@ -5,7 +5,7 @@ from llama_index.vector_stores.faiss import FaissVectorStore
 from llama_index.core.tools import QueryEngineTool, ToolMetadata
 from llama_index.readers.file import PyMuPDFReader
 
-embedding_model = HuggingFaceEmbedding(model="sentence-transformers/all-MiniLM-L6-v2")
+embedding_model = HuggingFaceEmbedding(model_name="sentence-transformers/all-MiniLM-L6-v2")
 Settings.embed_model = embedding_model
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
