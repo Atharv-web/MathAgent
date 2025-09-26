@@ -8,9 +8,7 @@ from llama_index.llms.openai import OpenAI
 from llama_index.tools.mcp import BasicMCPClient, McpToolSpec
 from kb_tool import rag_tool
 
-# ---- Config ----
 llm = OpenAI(model="gpt-4o", temperature=0.1)
-# origins = ["http://localhost:3000"]
 
 app = FastAPI(title="Math Agent", version="1.0.0")
 app.add_middleware(
@@ -21,10 +19,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ---- In-memory session store ----
 sessions: Dict[str, Any] = {}
 
-# ---- Math I/O Guardrails ----
+# ---- I/O Guardrails ----
 class MathGuardrails:
     @staticmethod
     def validate_math_input(topic: str) -> tuple[bool, str]:
