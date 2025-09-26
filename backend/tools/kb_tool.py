@@ -1,4 +1,4 @@
-import faiss, os
+import faiss,os
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.core import VectorStoreIndex, StorageContext,Settings, load_index_from_storage
 from llama_index.vector_stores.faiss import FaissVectorStore
