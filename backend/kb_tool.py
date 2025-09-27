@@ -23,12 +23,12 @@ def encode_db(db_path):
 
     # Store in Faiss
     index = VectorStoreIndex.from_documents(documents,storage_context=storage_context)
-    vector_store.persist(persist_path=persist_dir_path)
     index.storage_context.persist(persist_dir=persist_dir_path)
     return index
 
 if os.path.exists(os.path.join(persist_dir_path,"docstore.json")):
-    storage_context = StorageContext.from_defaults(persist_dir=persist_dir_path)
+    vector_store= FaissVectorStore.from_persist_dir(persist_dir_path)
+    storage_context = StorageContext.from_defaults(persist_dir=persist_dir_path,vector_store=vector_store)
     index = load_index_from_storage(storage_context=storage_context)
 else:
     index = encode_db(pdf_path)
