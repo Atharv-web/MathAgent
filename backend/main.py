@@ -15,16 +15,12 @@ app = FastAPI(title="Math Agent", version="1.0.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=False,
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 sessions: Dict[str, Any] = {}
-
-@app.get("/")
-async def root():
-    return {"message": "Math Agent API is running"}
 
 # ---- I/O Guardrails ----
 class MathGuardrails:
@@ -377,6 +373,10 @@ class MathAgent:
             
         except Exception as e:
             return f"I encountered an error improving the solution: {str(e)}"
+
+@app.get("/")
+async def root():
+    return {"message": "Math Agent API is running"}
 
 @app.post("/chat")
 async def chat(req: ChatRequest):
