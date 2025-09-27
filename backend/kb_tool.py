@@ -4,6 +4,8 @@ from llama_index.core import VectorStoreIndex, StorageContext,Settings, load_ind
 from llama_index.vector_stores.faiss import FaissVectorStore
 from llama_index.core.tools import QueryEngineTool, ToolMetadata
 from llama_index.readers.file import PyMuPDFReader
+from dotenv import load_dotenv
+load_dotenv()
 
 embedding_model = HuggingFaceEmbedding(model_name="sentence-transformers/all-MiniLM-L6-v2")
 Settings.embed_model = embedding_model
@@ -11,7 +13,7 @@ Settings.embed_model = embedding_model
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
 persist_dir_path = os.path.join(base_dir,"db","VectorStore")
-pdf_path = os.path.join(base_dir,"..","data","mathbook.pdf")
+pdf_path = os.path.join(base_dir,"data","mathbook.pdf")
 
 def encode_db(db_path):
     documents = PyMuPDFReader().load(db_path)
