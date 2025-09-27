@@ -21,6 +21,10 @@ app.add_middleware(
 
 sessions: Dict[str, Any] = {}
 
+@app.get("/")
+async def root():
+    return {"message": "Math Agent API is running"}
+
 # ---- I/O Guardrails ----
 class MathGuardrails:
     @staticmethod
