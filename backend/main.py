@@ -11,10 +11,11 @@ from llama_index.tools.mcp import BasicMCPClient, McpToolSpec
 llm = OpenAI(model="gpt-4o", temperature=0.1)
 
 app = FastAPI(title="Math Agent", version="1.0.0")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
