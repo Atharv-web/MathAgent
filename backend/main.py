@@ -8,7 +8,7 @@ from llama_index.llms.openai import OpenAI
 from llama_index.tools.mcp import BasicMCPClient, McpToolSpec
 # from kb_tool import rag_tool
 
-llm = OpenAI(model="gpt-4o", temperature=0.1)
+# llm = OpenAI(model="gpt-4o", temperature=0.1)
 
 app = FastAPI(title="Math Agent", version="1.0.0")
 
@@ -19,6 +19,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+llm = OpenAI(model="gpt-4o", temperature=0.1)
 
 sessions: Dict[str, Any] = {}
 
