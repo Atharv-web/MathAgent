@@ -33,7 +33,7 @@ if os.path.exists(os.path.join(persist_dir_path,"docstore.json")):
 else:
     index = encode_db(pdf_path)
 
-queryEngine = index.as_query_engine
+queryEngine = index.as_query_engine()
 
 rag_tool = QueryEngineTool(
     query_engine=queryEngine,
