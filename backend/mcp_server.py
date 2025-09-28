@@ -14,5 +14,9 @@ def websearch_tool(query: str) -> str:
     except Exception as e:
         return f"Error: {str(e)}"
 
+async def main():
+    """Main function to run the mcp server!!"""
+    await mcp.run_stdio_async()
+
 if __name__ == "__main__":
-    asyncio.run(mcp.run(transport="stdio"))
+    asyncio.run(main())
