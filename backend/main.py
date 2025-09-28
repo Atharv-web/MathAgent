@@ -174,10 +174,16 @@ class MathAgent:
             return
 
         try:
-            from kb_tool import rag_tool
-            # Get tools
+
             mcp_tools = await get_mcp_tools()
-            tools = [rag_tool] + mcp_tools
+            try:
+                from kb_tool import rag_tool
+                tools = [rag_tool] + mcp_tools
+
+            except Exception as e:
+                return f"rag_tool is not getting used (maybe heavy), going forward without it, but exception occured is {e}"
+            
+            tools = mcp_tools
             print(f"Total tools available: {len(tools)}")
 
             # Research Agent with math focus
