@@ -6,9 +6,7 @@ from pydantic import BaseModel
 from llama_index.core.agent.workflow import FunctionAgent
 from llama_index.llms.openai import OpenAI
 from llama_index.tools.mcp import BasicMCPClient, McpToolSpec
-# from kb_tool import rag_tool
-
-# llm = OpenAI(model="gpt-4o", temperature=0.1)
+from kb_tool import rag_tool
 
 app = FastAPI(title="Math Agent")
 
@@ -125,7 +123,6 @@ class ChatRequest(BaseModel):
     topic: str
     session_id: Optional[str] = None
     
-    # @validator('topic')
     def validate_math_topic(cls, v):
         is_valid, message = MathGuardrails.validate_math_input(v)
         if not is_valid:
@@ -139,7 +136,6 @@ class HumanInputRequest(BaseModel):
     session_id: str
     feedback: str
     
-    # @validator('feedback')
     def validate_feedback(cls, v):
         if not v or not v.strip():
             raise ValueError('Feedback cannot be empty')
@@ -186,7 +182,7 @@ class MathAgent:
             tools = mcp_tools
             print(f"Total tools available: {len(tools)}")
 
-            # Research Agent with math focus
+            # Research Agent
             self.research_agent = FunctionAgent(
                 name="MathResearchAgent",
                 description="Mathematics researcher specializing in providing context for math problems.",
@@ -213,7 +209,7 @@ class MathAgent:
             self.research_agent = None
 
         try:
-            # Math Solver Agent
+            # MathAgent
             self.math_agent = FunctionAgent(
                 name="MathSolverAgent", 
                 description="Expert mathematical problem solver providing step-by-step solutions.",
@@ -236,7 +232,7 @@ class MathAgent:
                 Maintain mathematical accuracy and clarity throughout.""",
                 llm=llm,
             )
-            print("Math solver agent created successfully")
+            print("Math agent created successfully")
             
         except Exception as e:
             print(f"Math agent creation failed: {e}")
