@@ -6,11 +6,11 @@ from pydantic import BaseModel
 from llama_index.core.agent.workflow import FunctionAgent
 from llama_index.llms.openai import OpenAI
 from llama_index.tools.mcp import BasicMCPClient, McpToolSpec
-# from kb_tool import rag_tool
+from kb_tool import rag_tool
 
 # llm = OpenAI(model="gpt-4o", temperature=0.1)
 
-app = FastAPI(title="Math Agent", version="1.0.0")
+app = FastAPI(title="Math Agent")
 
 app.add_middleware(
     CORSMiddleware,
@@ -175,8 +175,6 @@ class MathAgent:
 
         try:
             # Get tools
-            from kb_tool import rag_tool
-
             mcp_tools = await get_mcp_tools()
             tools = [rag_tool] + mcp_tools
             print(f"Total tools available: {len(tools)}")
