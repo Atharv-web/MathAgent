@@ -1,17 +1,10 @@
-pymupdf
 fastapi
 openai
-python-dotenv
 mcp[cli]
-sentence-transformers
-torch
 llama-index-embeddings-huggingface
 llama-index-core
 llama-index-llms-openai
 llama-index-tools-mcp
-llama-index-vector-stores-faiss
-llama-index-readers-file
 pydantic
 uvicorn
-faiss-cpu
 tavily-python
