@@ -1,10 +1,9 @@
 import os
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
-from llama_index.core import VectorStoreIndex, StorageContext,Settings, load_index_from_storage,SimpleDirectoryReader
+from llama_index.core import VectorStoreIndex, StorageContext,load_index_from_storage,SimpleDirectoryReader
 from llama_index.core.tools import QueryEngineTool, ToolMetadata
 
 embedding_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
-Settings.embed_model = embedding_model
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
