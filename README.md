@@ -1,8 +1,9 @@
 # Math Agent
 
-An intelligent mathematical problem-solving assistant powered by Gemini, designed to solve, and refine solutions through interactive feedback.
+An intelligent mathematical problem-solving Professor powered by Gemini, designed to solve, make you understand and refine solutions through interactive feedback. It explains like your math professor but without rolling its eyes at you when you ask your silly doubts or any doubts at all.
 
 ## Overview
+The Math agent uses the same engineering math book that covers all your 11th, 12th and first year engineering topics. Suppose you ask maths above this level, it will search and provide you with a solution and wait for you to understand to provide clarity.
 Math Agent is a multi agent system that tackles mathematical problems systematically:
 
 1. **Research** - Leverages web search and knowledge bases for relevant mathematical insights
