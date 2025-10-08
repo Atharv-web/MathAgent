@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 
 const BACKEND_API_URL = process.env.NEXT_PUBLIC_API_URL;
-
+console.log("Backend URL:", BACKEND_API_URL);
 // MathJax configuration
 const mathJaxConfig = {
   tex: {
