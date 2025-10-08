@@ -1,0 +1,7 @@
+fastapi
+mcp[cli]
+llama-index-core
+llama-index-llms-gemini
+llama-index-tools-mcp
+tavily-python
+pinecone
