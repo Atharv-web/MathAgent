@@ -1,6 +1,8 @@
 import os, json, asyncio
 from mcp.server.fastmcp import FastMCP
 from tavily import TavilyClient
+from dotenv import load_dotenv
+load_dotenv()
 
 mcp= FastMCP("tavily_search")
 tavily_client = TavilyClient(api_key=os.getenv('TAVILY_API_KEY'))
