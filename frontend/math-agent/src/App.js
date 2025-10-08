@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 
-const BACKEND_API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+const BACKEND_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // MathJax configuration
 const mathJaxConfig = {
@@ -190,6 +190,7 @@ function App() {
       const res = await fetch(`${BACKEND_API_URL}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: include,
         body: JSON.stringify({ 
           topic: message,
           session_id: sessionId  // Continue existing session if available
@@ -383,7 +384,6 @@ function App() {
           
           {waiting && (
             <div className="feedback-hint">
-              {/* 💡 <strong>Tip:</strong> Type "approve" to accept the solution, or provide specific feedback for improvements */}
             </div>
           )}
         </div>
