@@ -190,7 +190,7 @@ function App() {
       const res = await fetch(`${BACKEND_API_URL}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: include,
+        credentials: "include",
         body: JSON.stringify({ 
           topic: message,
           session_id: sessionId  // Continue existing session if available
@@ -229,6 +229,7 @@ function App() {
       const res = await fetch(`${BACKEND_API_URL}/human-input`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials:"include",
         body: JSON.stringify({
           session_id: sessionId,
           feedback: message,
