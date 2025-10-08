@@ -1,26 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 
+import ReactMarkdown from "react-markdown";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
+
 const BACKEND_API_URL = process.env.REACT_APP_API_URL;
 console.log("Backend URL:", BACKEND_API_URL);
-// MathJax configuration
-const mathJaxConfig = {
-  tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']],
-    displayMath: [['$$', '$$'], ['\\[', '\\]']],
-    packages: {'[+]': ['ams', 'newcommand', 'configmacros']},
-    processEscapes: true,
-    processEnvironments: true
-  },
-  svg: {
-    fontCache: 'global'
-  },
-  options: {
-    renderActions: {
-      addMenu: [0, '', '']
-    }
-  }
-};
 
 function App() {
   const [message, setMessage] = useState("");
@@ -29,59 +16,12 @@ function App() {
   const [status, setStatus] = useState(null);
   const [waiting, setWaiting] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [mathJaxLoaded, setMathJaxLoaded] = useState(false);
-
   const [userScrolled, setUserScrolled] = useState(false);
   const [lastMsgCount, setLastMsgCount] = useState(0);
-
   const messagesEndRef = useRef(null);
   const messagesContainerRef = useRef(null); 
-  const mathJaxTimeoutRef = useRef(null);
   const prevMessagesRef = useRef([]);
 
-  // Load MathJax
-  useEffect(() => {
-    if (!window.MathJax && !mathJaxLoaded) {
-      // Configure MathJax before loading
-      window.MathJax = mathJaxConfig;
-      
-      const script = document.createElement('script');
-      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js';
-      script.async = true;
-      script.onload = () => {
-        console.log('MathJax loaded successfully');
-        setMathJaxLoaded(true);
-      };
-      script.onerror = () => {
-        console.error('Failed to load MathJax');
-      };
-      document.head.appendChild(script);
-    } else if (window.MathJax) {
-      setMathJaxLoaded(true);
-    }
-  }, [mathJaxLoaded]);
-
-  // Retypeset MathJax when messages change
-  useEffect(() => {
-    if (mathJaxLoaded && window.MathJax && window.MathJax.typesetPromise) {
-      // Only retypeset if messages actually changed
-      if (JSON.stringify(messages) !== JSON.stringify(prevMessagesRef.current)) {
-        prevMessagesRef.current = messages;
-        
-        // Clear existing timeout
-        if (mathJaxTimeoutRef.current) {
-          clearTimeout(mathJaxTimeoutRef.current);
-        }
-        
-        // Debounce: Wait 300ms before typesets
-        mathJaxTimeoutRef.current = setTimeout(() => {
-          window.MathJax.typesetPromise().catch((err) => {
-            console.warn('MathJax typeset error:', err);
-          });
-        }, 300);
-      }
-    }
-  }, [messages, mathJaxLoaded]);
 
   // smart scrolling
   const handleScroll = () => {
@@ -126,59 +66,6 @@ function App() {
 
     return () => clearInterval(interval);
   }, [sessionId, status]);
-
-  // Enhanced math formatting function
-  const formatMathContent = (content) => {
-    if (!content) return content;
-    
-    let formatted = content;
-    
-    // Escape any existing # characters that aren't part of LaTeX
-    formatted = formatted.replace(/#/g, '\\#');
-    
-    // Only apply math formatting to content that looks like mathematical expressions
-    const hasMathIndicators = /[=+\-*/^_√∫∂∞πθαβγδωλμσ]|sin|cos|tan|log|ln|sqrt|integral|derivative|solve|equation/i.test(content);
-    
-    if (hasMathIndicators) {
-      // Simple and safe mathematical expressions
-      const mathPatterns = [
-        // Simple fractions with numbers only
-        { pattern: /\b(\d+)\/(\d+)\b/g, replacement: '\\frac{$1}{$2}' },
-        // Mathematical symbols
-        { pattern: /π/g, replacement: '\\pi' },
-        { pattern: /∞/g, replacement: '\\infty' },
-        { pattern: /∫/g, replacement: '\\int' },
-        { pattern: /∂/g, replacement: '\\partial' },
-        // Greek letters as whole words
-        { pattern: /\bpi\b/g, replacement: '\\pi' },
-        { pattern: /\btheta\b/g, replacement: '\\theta' },
-        { pattern: /\balpha\b/g, replacement: '\\alpha' },
-        { pattern: /\bbeta\b/g, replacement: '\\beta' },
-        // Square root with simple content
-        { pattern: /sqrt\(([^)]+)\)/g, replacement: '\\sqrt{$1}' },
-        { pattern: /√\(([^)]+)\)/g, replacement: '\\sqrt{$1}' },
-      ];
-
-      // Apply patterns safely
-      mathPatterns.forEach(({ pattern, replacement }) => {
-        try {
-          formatted = formatted.replace(pattern, replacement);
-        } catch (e) {
-          console.warn('Pattern replacement error:', e);
-        }
-      });
-
-      // Only wrap simple equations in display math (avoid complex content)
-      const simpleEquationPattern = /^[\s]*([a-zA-Z0-9\s+\-*/=().^_]+)[\s]*$/;
-      if (simpleEquationPattern.test(formatted) && formatted.includes('=')) {
-        if (!formatted.includes('$')) {
-          formatted = `$$${formatted.trim()}$$`;
-        }
-      }
-    }
-
-    return formatted;
-  };
 
   const sendMessage = async () => {
     if (!message.trim()) return;
@@ -326,9 +213,14 @@ function App() {
             >
               <div className="message-content">
                 <div className="message-text">
-                  <div 
-                    dangerouslySetInnerHTML={{
-                      __html: formatMathContent(msg.content || '').replace(/\n/g, '<br/>')
+                  <ReactMarkdown
+                    children={msg.content || ""}
+                    remarkPlugins={[remarkMath]}
+                    rehypePlugins={[rehypeKatex]}
+                    components={{
+                      p: ({ node, ...props }) => (
+                        <p style={{ margin: 0, whiteSpace: "pre-wrap" }} {...props} />
+                      ),
                     }}
                   />
                 </div>
